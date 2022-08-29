@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+</head>
+ 
+<body>
+  <form name="calc-basal-metabolic-rate">
+    <table cellspacing="3">
+      <form name="gender-form">
+        <input type="radio" id="gender" name="gender" value="male">男性
+        <input type="radio" id="gender" name="gender" value="female">女性
+      </form>
+      <tr>
+        <td colspan="4">
+          <label for="height">身長</label>
+          <input type="number" class="status-form" name="status-form" id="height" value="" style="width:50px;"> cm<br>
+        </td>
+      </tr>
+      <td colspan="4">
+        <label for="weight">体重</label>
+        <input type="number" class="status-form" name="status-form" id="weight" value="" style="width:50px;"> kg<br>
+      </td>
+      </tr>
+      <td colspan="4">
+        <label for="age">年齢</label>
+        <input type="number" class="status-form" name="status-form" id="age" value="" style="width:50px;"> 歳<br>
+      </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="計算" id="calc" class="calc" onclick="get_calc(this)"></td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <label for="age">基礎代謝</label>
+          <input type="text" class="result" id="result" name="result" value="" disabled style="width:150px;">
+      </tr>
+    </table>
+  </form>
+
+  <script>
+    function get_calc(btn) {
+      if(btn.id == "calc") {
+        var height = document.getElementById("height")
+        var weight = document.getElementById("weight")
+        var age    = document.getElementById("age")
+        var result = document.getElementById("result")
+        var gender = document.getElementsByName("gender")
+        if (height.value == "") {
+          result.value = "身長を入力してください"
+          return
+        }
+        else if (weight.value == "") {
+          result.value = "体重を入力してください"
+          return
+        }
+        else if (age.value == "") {
+          result.value = "年齢を入力してください"
+          return
+        }
+
+        if (gender[0].checked) {
+          result.value = ((0.0481 * weight.value + 0.0234 * height.value - 0.0138 * age.value - 0.4235) * 1000 / 4.186).toPrecision(6) + "kcal"
+        }
+        else if (gender[1].checked) {
+          result.value = ((0.0481 * weight.value + 0.0234 * height.value - 0.0138 * age.value - 0.9708) * 1000 / 4.186).toPrecision(6) + "kcal"
+        }
+        else {
+          result.value = "性別を選択してください"
+        }
+      }
+    }
+  </script>
+</body>
+</html>
